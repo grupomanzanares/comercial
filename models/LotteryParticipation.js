@@ -25,5 +25,5 @@ const LotteryParticipation = db.define('LotteryParticipations', {
     freezeTableName: true // Evita que Sequelize pluralice el nombre de la tabla
 });
 
-S
+
 export default LotteryParticipation;
