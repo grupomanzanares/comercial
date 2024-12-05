@@ -1,0 +1,35 @@
+extends ../layout/index
+
+block contenido
+    div.px-20
+        h1.text-4xl.my-10.font-extrabold.text-center Market 
+            span.font-normal Manzanares
+
+    if activeLottery
+
+        div(class="bg-white shadow py-8 px-8 sm:px-10 mx-auto rounded my-10 max-w-4xl md:px-10") 
+            h2.text-center.text-2xl.font-extrabold= activeLottery.name
+            form.space-y-8(method="post" action= `/lottery/${activeLottery.id}`)
+                input(type="hidden" name="_csrf" value= csrfToken)
+                div(class="flex flex-col sm:flex-row gap-4")
+                    div(class="flex-1 bg-gray-50 shadow py-8 px-8 rounded text-center sm:text-left")
+                        p.mt-2.text-gray-600
+                            span.font-semibold Descripción: 
+                            = activeLottery.description
+                    div(class="flex-1 bg-gray-50 shadow py-8 px-8 rounded text-center sm:text-left") 
+                        p.mt-2.text-gray-600
+                            span.font-semibold Participantes: 
+                            =  participations.length
+                div(class="shadow py-5   rounded my-10 max-w-4xl md:px-12")
+                    button(class="w-full bg-boton  hover:bg-botonHover text-white py-2 font-bold rounded-lg" type="submit") Realizar Sorteo
+
+        div(class="bg-white shadow py-8 px-8 sm:px-10 mx-auto rounded my-10 max-w-4xl md:px-10") 
+            p.mt-2.text-gray-600
+                span.font-semibold Descripción: 
+                = activeLottery.description
+
+
+    else
+        // Mensaje de no hay sorteo activo
+        div(class="bg-white shadow rounded-lg p-6 max-w-md mx-auto")
+            h1.text-3xl.font-bold.text-center.text-gray-800 No hay un sorteo activo en este momento

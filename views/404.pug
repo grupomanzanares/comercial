@@ -1,0 +1,12 @@
+
+extends ./layout/public
+
+block contenido 
+ div(class="flex justify-center")  
+    a(href="/" class="rounded p-2 bg-blue-500  hover:bg-indigo-800 text-sm text-white u inline-block my-5 text-center w-full sm:w-auto") 
+        div(class="py-10")
+            h1(class="text-center text-4xl font-extrabold pt-10")= page 
+
+            //- Mostrar la imagen 404
+            img(src="/img/404.png" alt="Error 404: Página no encontrada" class="block mx-auto ")
+            p(class="w-full text-center mt-10") La página que intentas solicitar no está en el servidor (Error 404)  

@@ -1,0 +1,33 @@
+extends ../layout/index
+block contenido
+    div.py-10 
+        h1.text-center.text-4xl.font-extrabold.my-5 Market
+            span.font-normal Manzanares
+        h2.text-center.text-4xl.font-extrabold= page
+
+        if errors
+            div.max-w-md.mx-auto.my-5.bg-red-400.rounded-md.shadow
+                h1.text-xs.text-center.font-bold.p-2.mb-1 Verifica las siguientes inconsistencias en tu registro
+                each error in errors 
+                    p.bg-red-500.text-white.text-xs.text-center= error.msg
+
+        div.mx-auto.max-w-md.bg-white.mt-8.py-8.px-4.shadow 
+            form.space-y-5(method= "post", action="/auth/register")
+                input(type="hidden" name="_csrf" value= csrfToken)
+                div 
+                    label.block.text-sm.uppercase.font-bold.text-gray-700.mb-2(for="name")  Ingresa tu nombre
+                    input#name.w-full.px-3.py-2.border.border-green-200.rounded-md.placeholder-gray-400(placeholder="Ingresa tu nombre completo", type="text", name="name" value=user ? user.name : '' )
+                div 
+                    label.block.text-sm.uppercase.font-bold.text-gray-700.mb-2(for="email")  Correo electrónico
+                    input#email.w-full.px-3.py-2.border.border-green-200.rounded-md.placeholder-gray-400(placeholder="Ingresa un correo válido", type="email", name="email" value=user ? user.email : '' )
+                div 
+                    label.block.text-sm.uppercase.font-bold.text-gray-700.mb-2(for="password")  Contraseña
+                    input#password.w-full.px-3.py-2.border.border-green-200.rounded-md.placeholder-gray-400(placeholder="Ingresa una contraseña", type="password", name="password" )
+                div 
+                    label.block.text-sm.uppercase.font-bold.text-gray-700.mb-2(for="repeat_password")  Repetir Contraseña
+                    input#repeat_password.w-full.px-3.py-2.border.border-green-200.rounded-md.placeholder-gray-400(placeholder="Repite la contraseña", type="password", name="repeat_password" )
+            
+                div.flex.items-center.justify-between
+                    a.text-gray-500.text-xs(href="/auth/login") ¿Ya tienes cuenta? Inicia sesión
+                    a.text-gray-500.text-xs(href="/auth/forgot") Olvide contraseña
+                input(class="w-full bg-green-800 hover:bg-green-700 text-white py-2  rounded-md font-bold cursor-pointer" type="submit" value="Crear Cuenta")

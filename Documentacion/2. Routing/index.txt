@@ -1,0 +1,19 @@
+// 1.  Cargamos express     mediante //ECMA-Script Modules, En package.json y agregar   "type": "module",
+import express from 'express';  
+import usuarioRoutes from './routes/usuarioRoutes.js';
+
+// 2. crear la app
+const app = express();
+
+// 3. Definir un Puerto y arrancar el proyecto
+const port = process.env.PORT || 3000;
+app.listen(port, ()=>{
+    console.log(`Escuchando en el puerto ${port}`)
+});
+
+// 4. Definir las rutas
+app.use('/', usuarioRoutes)
+
+
+
+

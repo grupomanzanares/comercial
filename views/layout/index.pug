@@ -1,0 +1,18 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Manzanares... | #{page}
+        link(rel="icon", type="image/x-icon", href="https://marketmanzanares.com/wp-content/uploads/2021/01/cropped-Recurso-3-32x32.png")
+        link(rel="stylesheet", href="/css/app.css")
+
+        block styles
+    body.min-h-screen.bg-red-50
+
+
+        main(class="mx-auto container mt-10 px-2")    
+            //-Aqui se renderizan las paginas que utilicen este layout    
+            block contenido                               
+
+        block scripts

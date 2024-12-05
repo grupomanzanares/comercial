@@ -1,0 +1,41 @@
+extends ../layout/index
+
+block contenido 
+    div.px-8
+        h1.text-4xl.my-10.font-extrabold.text-center Market 
+            span.font-normal Manzanares
+    
+        
+        if errors
+            div.max-w-md.mx-auto.my-5.bg-red-400.rounded-md.shadow
+                h1.text-xs.text-center.font-bold.p-2.mb-1 Verifica las siguientes inconsistencias en tu registro
+                each error in errors 
+                    p.bg-red-500.text-white.text-xs.text-center= error.msg
+
+        div(class="bg-white shadow py-8 px-8 sm:px-10 mx-auto rounded my-10 max-w-4xl md:px-10") 
+            h2.text-center.text-2xl.font-extrabold= page
+            form.space-y-8(method="post" action="/register")
+                input(type="hidden" name="_csrf" value= csrfToken)
+
+                div
+                    label.block.text-sm.uppercase.text-gray-700.mb-2.font-bold(for="identification") Identificación
+                    input#identificacion.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Ej. 109842031", 
+                    type="text", name="identification" value=data ? data.identification : '')
+
+                div
+                    label.block.text-sm.uppercase.text-gray-700.mb-2.font-bold(for="name") Nombre Completo
+                    input#name.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Ej. Sandra Villamizar", 
+                    type="text", name="name" value=data ? data.name : '')
+
+                div
+                    label.block.text-sm.uppercase.text-gray-700.mb-2.font-bold(for="phone") Teléfono
+                    input#phone.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Ej. 3202676640", 
+                    type="text", name="phone" value=data ? data.phone : '')
+
+                //- div
+                //-     label.block.text-sm.uppercase.text-gray-700.mb-2.font-bold(for="email") Correo Electrónico
+                //-     input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Ej. email@example.com", 
+                //-     type="email", name="email" value=data ? data.email : '')
+
+                div(class="shadow py-8 px-4 mx-auto rounded my-10 max-w-4xl md:px-12")
+                    input(type="submit" class="w-full py-3 bg-boton hover:bg-botonHover rounded text-black font-bold uppercase cursor-pointer" value="Registrar")

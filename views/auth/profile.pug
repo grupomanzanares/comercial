@@ -1,0 +1,33 @@
+extends ../layout/index
+block contenido
+    div.py-10
+        h1.text-4xl.my-10.font-extrabold.text-center Market 
+            span.font-normal Manzanares
+        h2.text-center.text-2xl.font-extrabold= page
+
+        if errors
+            div.max-w-md.mx-auto.my-10
+                each error in errors 
+                    p.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.font-bold= error.msg
+
+        div.mt-8.mx-auto.max-w-md.bg-white.py-8.px-4.shadow 
+            form.space-y-5(method= "post", action="/auth/profile")
+                input(type="hidden" name="_csrf" value= csrfToken)
+                div
+                    label.block.text-sm.uppercase.text-gray-700.mb-5.font-bold(for="name") Ingresa tu nombre
+                    input#name.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Ingresa tu nombre completo", type="text", name="name" value=user ? user.name : '' )
+                div
+                    label.block.text-sm.uppercase.text-gray-700.mb-5.font-bold(for="email") Correo electronico
+                    input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Ingresa un correo valido", type="email", name="email",  value= user ? user.email : '' readonly )
+                div
+                    label.block.text-sm.uppercase.text-gray-700.mb-5.font-bold(for="password") Contraseña
+                    input#password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Ingresa una contraseña", type="password", name="password" )
+                div
+                    label.block.text-sm.uppercase.text-gray-700.mb-5.font-bold(for="repeat_password") Repetir contraseña
+                    input#repeat_password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(placeholder="Repite tu contraseña", type="password", name="repeat_password" )
+
+                div.flex.items-center.justify-between
+                    //- a.text-gray-500.text-xs(href="/auth/login") ¿Ya tienes cuenta? Inicia sesión
+                    //- a.text-gray-500.text-xs(href="/auth/forgot") Olvide contraseña
+                a(href="/principal"  class="block w-full py-3 bg-gray-300 hover:bg-gray-400 rounded text-gray-800 font-bold uppercase text-center cursor-pointer mb-4") Cancelar
+                input(class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 font-bold cursor-pointer" type="submit" value="Actualizar Perfil")

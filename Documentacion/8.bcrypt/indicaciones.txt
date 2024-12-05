@@ -1,0 +1,17 @@
+npm i bcrypt
+
+En el modelo
+import bcrypt from 'bcrypt'  
+Agregar un hook 
+
+    hooks: {
+        /* Antes de insertar se llama una funcion anonima   async  await   
+            recibe el parametro user que es la constante que creamos en el controlador cuando mandamos a guardar   
+            const user = await User.create(req.body)   en el controlador con esta instruccion estamos llamando el modelo y antes de guardar se dispara  beforeCreate: async function(user)    
+            con brcypt generar un salt y unirlo con el password para que al guardar quede encriptado en la base de datos
+        */
+        beforeCreate: async function(user){
+            const salt    = await bcrypt.genSalt(10)                //Salt: Cadena de caracteres que se adjuntan a la contraseña (es unico)  
+            user.password = await bcrypt.hash(user.password, salt)  //Encriptar
+        }
+    },

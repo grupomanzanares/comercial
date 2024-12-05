@@ -1,0 +1,11 @@
+header.bg-green-600.p-4
+    .container.mx-auto.flex.justify-between.items-center
+        a(href="/") 
+            h1.text-2xl.text-white.font-extrabold.text-center Market
+                span.font-normal Manzanares
+            nav(class="my-5 text-sm font-bold text-white md:flex md:items-center md:gap-3 hidden") 
+                a(href="/principal") Mis ....
+                a(href="/auth/profile") Mi perfil
+                form(action="/auth/logout" method="post")
+                    input(type="hidden" name="_csrf" value= csrfToken)
+                    input(type="submit" class="rounded-lg py-2 px-10 bg-green-600  hover:bg-green-500 cursor-pointer" value="Cerrar sesión")

@@ -1,0 +1,11 @@
+Crear carpeta helper :  Son funciones genericas  ejemplo enviar correo   generar token,    manejo de fechas
+                        creamos el helper token.js    const generatorId = () => Date.now().toString(32) + Math.random().toString(32).substring(2);
+                        importamos en el controlador y usamos cuando vamos a guardar el usuario 
+
+
+     const user = await User.create({   
+            name,
+            email,
+            password,
+            token: generatorId()
+        })

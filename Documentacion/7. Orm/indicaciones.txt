@@ -1,0 +1,46 @@
+npm i sequelize mysql2
+https://sequelize.org/ 
+
+
+crear carpeta config,  y dentro de esta crear archivo db.js  y  colocar:
+                import { Sequelize } from "sequelize";
+                import dotenv from "dotenv";  //importar modulo dotenv para llamar las variables de entorno
+
+                dotenv.config({ path: '.env' });
+
+                const db = new Sequelize(process.env.DB_DATABASE,process.env.DB_USER,process.env.DB_PASSWORD,{
+                    host: process.env.DB_SERVER,
+                    dialect:'mysql',
+                    port: 3306,
+                    define: {timestamps:true},
+                    pool:{max:5, min:0, acquire:30000,idle:10000}
+                })
+
+                export default db
+
+
+debo configurar la variables de entorno  en .dev
+            DB_SERVER    = 'localhost'
+            DB_USER      =  'root'
+            DB_PASSWORD  =  'colocar password'
+            DB_DATABASE  =  'trace_beef'
+
+
+
+En index debo llamar el archivo de configuracion
+import db from './config/db.js';
+
+
+// 7. Conexion a la base de datos
+
+try {
+    await db.authenticate();                              //await porque se llama el metodo de forma asincrona.  espera hasta que se ejecute el metodo para dar el mensaje
+    console.info('Conexión exitosa a la base de datos');
+    await db.sync();
+    console.info('Sincronización completada');
+ 
+} catch (error) {
+    console.log(error);
+}
+
+Creamos el primer modelo en la carpeta models  debe por convencion siempre la primer letra en mayuscula:  User.js

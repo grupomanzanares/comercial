@@ -1,0 +1,43 @@
+extends ../layout/index
+
+block contenido
+    div.py-10
+        h1.text-4xl.my-10.font-extrabold.text-center Market 
+            span.font-normal Manzanares
+        h2.text-center.text-4xl.font-extrabold= page
+
+    div.bg-white.shadow.py-8.px-4.rounded-lg.max-w-md.mx-auto.text-center
+        h1.text-3xl.font-bold.text-gray-800.mt-4 ¡Felicidades al Ganador!
+
+        // Información del Sorteo
+        if lottery
+            div.mt-6.text-left
+                h2.text-xl.font-extrabold.text-blue-600= lottery.name
+                p.text-sm.text-gray-600.mt-2  
+                    span.font-semibold Descripción: 
+                    = lottery.description
+
+        // Información del Ganador
+        if winner
+            div.mt-6.text-left
+                h2.text-lg.font-bold.text-gray-800.mb-4 Datos del Ganador
+                ul
+                    li.flex.justify-between.items-center.py-2.border-b.border-gray-400
+                        span
+                            span.font-extrabold.text-black-600 Identificación: 
+                            span.text-gray-800= winner.identification
+                    li.flex.justify-between.items-center.py-2.border-b-2.border-gray-400
+                        span
+                            span.font-extrabold.text-black-600 Nombre: 
+                            span.text-gray-800= winner.name
+                    li.flex.justify-between.items-center.py-2.border-b.border-gray-400
+                        span
+                            span.font-extrabold.text-black-600 Teléfono: 
+                            span.text-gray-800= winner.phone
+                div.bg-red-100.shadow.rounded-lg.py-8.px-6.mt-4.text-center
+                        span.font-bold.text-gray-800.text-3xl= winner.code
+
+        else
+            p.text-sm.text-gray-800.mt-4 No hay datos del ganador en este momento.
+    div.py-8.px-6.rounded-lg.max-w-lg.mx-auto.text-center
+        a(class="w-full bg-boton hover:bg-botonHover text-black  py-2 px-2 font-bold rounded-lg " href="/lottery") Volver a Sorteos

@@ -1,0 +1,3 @@
+Para envio de correo Necesitamos nodemailer y mailtrap 
+https://nodemailer.com/
+npm install nodemailer

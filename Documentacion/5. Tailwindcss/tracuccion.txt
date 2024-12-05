@@ -1,0 +1,12 @@
+  body.min-h-screen.bg-gray-50   se traduce  a :  
+                                        .min-h-screen {
+                                            min-height: 100vh;
+                                        }
+
+                                        .bg-gray-50 {
+                                        --tw-bg-opacity: 1;
+                                        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+                                        }
+
+
+mx-auto container mt-10 px-2   Centrado de forma horizontal y vertical,    margin top de 10 px y pading horizontal 2

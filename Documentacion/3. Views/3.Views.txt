@@ -1,0 +1,42 @@
+Template   Pug:  npm install pug
+Motor de plantilla que Me permiten mostrar informacion html para aplicaciones de tipo monoliticas: pequeñas y simples
+Presenta como ventajas: 
+        Crear codigo html de forma simple
+        Imprimir informacion de la Bd  de forma sencilla
+        Seguridad mas sencilla de implementar
+
+        Desventaja: Un poco mas lentas, no dinamicas
+
+
+Crear carpeta de vistas   y dentro de esta auth  y dentro login.pug
+En el index
+// 5.  Habilitar plantilla Pub:  configuramos
+    app.set('view engine', 'pug') //voy a utilizar un motor de plantillas llamado pug
+    app.set('views','./views')  // ruta donde estaran las vistas
+
+
+En el index
+app.use('/auth', usuarioRoutes)    indicamos que todo debe iniciar con auth  para que en auth tengamos varias rutas mas
+                                   http://localhost:3000/auth/login
+
+ene el usuarioRoutes.js     Utilizamos Render.  no tenemos que decirle views porque en el index ya lo cofigure
+                router.get('/login', (req,res)=>{
+                res.render('auth/login');     //busca la carpeta views auth login.pug    RENDERIZA Esto, me carga una vista
+                 })
+
+en views-auth-login.pug
+div 
+    h1 Hola mundo dentro de un div...
+p inicio de sesion
+
+Pug trabaja con identaciones
+Para los estilos hay que instalar un framework de css
+
+
+Formas de usar css en pug
+
+      h1.text-center  Hola Mundo...
+      o
+      h1.(class="text-center")  Hola Mundo...
+      o
+      h1#title  Hola Mundo...  

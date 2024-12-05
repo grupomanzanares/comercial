@@ -1,0 +1,26 @@
+// 1.  Cargamos express     mediante //ECMA-Script Modules, En package.json y agregar   "type": "module",
+import express from 'express';  
+import usuarioRoutes from './routes/usuarioRoutes.js';
+
+// 2. crear la app
+const app = express();
+
+
+// 4. Definir las rutas
+app.use('/auth', usuarioRoutes)
+
+
+// 5.  Habilitar plantilla Pub:  configuramos
+app.set('view engine', 'pug') //voy a utilizar un motor de plantillas llamado pug
+app.set('views','./views')  // ruta donde estaran las vistas
+
+
+
+
+
+
+// 3. Definir un Puerto y arrancar el proyecto
+const port = process.env.PORT || 3000;
+app.listen(port, ()=>{
+    console.log(`Escuchando en el puerto ${port}`)
+});

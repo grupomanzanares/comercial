@@ -1,0 +1,40 @@
+
+import express from 'express';  
+
+const router = express.Router();
+
+
+router.get('/', (req,res)=>{
+    res.send("hola mundo desde express");
+})
+
+
+//Funcion de flecha
+// router.get('/nosotros', (req,res)=>{
+//     res.json({msg: "Pagina Get Nosotros"});
+// })
+
+
+// router.post('/nosotros', (req,res)=>{
+//     res.json({msg: "Ruta POst Nosotros"});
+// })
+
+
+
+//Agrupando Rutas
+router.route('/nosotros')
+    .get((req,res)=>{
+        res.json({msg: "Pagina Get Nosotros"});
+    })
+
+    .post((req,res)=>{
+        res.json({msg: "Ruta POst Nosotros"});
+    })
+
+
+export default router;   //Exporta un elemento
+
+
+
+
+export default router;   //Exporta un elemento

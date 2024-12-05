@@ -1,0 +1,11 @@
+npm install jsonwebtoken
+npm install cookie-parser
+npm install csurf
+se requieren en el .env  configurar una palabra secreta      JWT_SECRET= "xxxx"
+
+Crear un Helper token.js
+
+
+Flujo
+--Creamos el token
+--Almacenamos en una cookie

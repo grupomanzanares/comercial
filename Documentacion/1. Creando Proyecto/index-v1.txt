@@ -1,0 +1,21 @@
+// 1.  Cargamos express     mediante //ECMA-Script Modules, En package.json y agregar   "type": "module",
+import express from 'express';        //ECMA-Script Modules
+//const express = require('express'); //como Js Modules  (forma antiuga de cargar ahora es con ECMA-Script Module)
+
+// 2. crear la app
+const app = express();
+
+// 3. Definir un Puerto y arrancar el proyecto
+const port = process.env.PORT || 3000;
+app.listen(port, ()=>{
+    console.log(`Escuchando en el puerto ${port}`)
+});
+
+// 4. Definir las rutas
+app.get('/', function(req,res){
+    res.send("hola mundo desde express");
+})
+
+app.get('/nosotros', function(req,res){
+    res.json({msg: "Pagina Nosotros"});         //En formato json
+})

@@ -1,0 +1,18 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Grupo Manzanares | #{page}
+        link(rel="icon", type="image/x-icon", href="https://brsantander.com.co/wp-content/uploads/2023/04/pin-brsantander.png")
+        link(rel="stylesheet", href="/css/app.css")
+        block styles
+    body.min-h-screen.bg-red-50
+        include includes/header-public 
+        main(class="mx-auto container mt-2 px-2")
+            block contenido
+        
+        include includes/footer-public 
+
+        block scriptsgo
+

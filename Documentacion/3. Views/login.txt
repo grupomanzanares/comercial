@@ -1,0 +1,6 @@
+div 
+    
+    if autenticado
+        p Usuario Autenticado    
+    else    
+        p inicio de sesion

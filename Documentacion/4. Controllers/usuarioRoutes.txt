@@ -1,0 +1,19 @@
+
+import express from 'express';  
+import { formLogin, formRegister } from '../controllers/usuarioController.js';
+
+
+const router = express.Router();
+
+//Autenticacion
+router.get('/login',     formLogin);
+// router.post('/login',    auth);
+
+
+
+//Registro
+router.get('/register',  formRegister);                    // Vista de registro  
+
+
+
+export default router;   //Exporta un elemento

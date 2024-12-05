@@ -1,0 +1,56 @@
+https://tailwindcss.com/
+npm install -D tailwindcss
+npm install -D autoprefixer postcss postcss-cli
+
+
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.4"
+  }
+
+
+
+Crear carpeta Public  css- img - js -uploads
+      Dentro de css crear archivo tailwind.css
+             En ese archivo debo tener las siguientes directivas
+                    @tailwind base;
+                    @tailwind components;
+                    @tailwind utilities;
+
+
+      En el index debo crear la carpeta publica
+      app.use(express.static ('public'))
+
+      Ejecutar:   npx tailwindcss init -p
+                  Crea los archivos  postcss.config.js    ( exporta de los plugins postcss y autoprefixer)
+                  Crea los archivos tailwind.config.js
+
+                  Cambiar la extension a .mjs
+                  debemos cambiar la extensión a mjs para que se ajusten a la sintaxis de módulos de JavaScript ES6.
+
+      Configuracion archivo  tailwind.config.mjs
+                          /** @type {import('tailwindcss').Config} */
+                          export default {
+                            content: ['./views/**/*.pug'],
+                            theme: {
+                              fontFamily: {
+                                display: ['Gilroy', 'sans-serif'],
+                                body: ['Graphik', 'sans-serif'],
+                              },
+                              extend: {
+                                colors: {
+                                  colorError: '#E05E58',
+                                  boton:'#3FBAE0',
+                                  botonHover:'#5A3AE0'
+                                },
+                              },
+                            },
+                            plugins: [],
+                          }
+
+    En package.json debo colocar el siguiente servicio
+         "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
+         Genera el archivo app.css con las clases de tailwind que usemos y el –watch es para que lo haga constantemente 
+         y no toque estar ejecutando npm run css
