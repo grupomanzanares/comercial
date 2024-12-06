@@ -14,7 +14,7 @@ block contenido
 
         div(class="bg-white shadow py-8 px-8 sm:px-10 mx-auto rounded my-10 max-w-4xl md:px-10") 
             h2.text-center.text-2xl.font-extrabold= page
-            form.space-y-8(method="post" action="/register")
+            form.space-y-8(method="post" action="/market/register")
                 input(type="hidden" name="_csrf" value= csrfToken)
 
                 div

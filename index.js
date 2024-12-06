@@ -49,6 +49,12 @@ const app = express();
             // Habilitar el CSRF
             app.use(csurf({cookie:true}));   
 
+            // **Middleware para registrar las solicitudes**
+            app.use((req, res, next) => {
+                console.log(`Solicitud: ${req.method} ${req.url}`);
+                next(); // Pasa al siguiente middleware
+            });
+
 
 // 4. Definir las rutas
 app.use('/market/auth', usuarioRoutes)
