@@ -20,7 +20,9 @@ const app = express();
              * 
              * 
              *  */
-                app.use(express.static ('public'))   
+                app.use(express.static ('public'))  
+                
+                
 
             /** CONEXION A LA BASE DE DATOS */
             try {
@@ -48,9 +50,9 @@ const app = express();
 
 
 // 4. Definir las rutas
-app.use('/auth', usuarioRoutes)
-app.use('/', appRoutes)
-app.use('/', principalRoutes)
+app.use('/market/auth', usuarioRoutes)
+app.use('/market', appRoutes)
+app.use('/market', principalRoutes)
 
 
 // 5.  Habilitar plantilla Pub:  configuramos
