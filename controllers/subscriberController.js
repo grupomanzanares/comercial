@@ -93,7 +93,6 @@ const register = async (req, res) => {
 
     
     let arrayDeErrores = validationResult(req)
-
     if (!arrayDeErrores.isEmpty()) {
         return res.render('subscribe/register', {
             page: 'Registro Cliente',
@@ -105,58 +104,89 @@ const register = async (req, res) => {
 
 
     /* Paso 4:  Validaciones con la base de datos:
-                    Que no se encuentre el usuario ya registrado en la base de datos con el email que ya extraimos del cuerpo de la peticion req.body    */  
-                    const userExist = await Subscriber.findOne({ where: { identification }})
-                    if(userExist){
-                        return res.render('subscribe/register',{
-                            page: 'Registro Cliente',
-                            csrfToken : req.csrfToken(),
-                            errors: [{msg: 'Ya te encuentras registrado'}],
-                            data: req.body,
-                        })
-                    }        
-
-                    
-    
+        Validar si el usuario ya esta suscrito    */  
+        
+            // if(userExist){
+            //     return res.render('subscribe/register',{
+            //         page: 'Registro Cliente',
+            //         csrfToken : req.csrfToken(),
+            //         errors: [{msg: 'Ya te encuentras registrado'}],
+            //         data: req.body,
+            //         })
+            //     }        
+   
 
     try {
-        const activeLottery = await Lottery.findOne({ where: { status: true } });
 
+        const userExist = await Subscriber.findOne({ where: { identification }})
+        let subscriber;
+        let code;
+        
+
+        if(!userExist){ 
+            subscriber = await Subscriber.create({
+                identification,
+                name,
+                phone,
+                email,
+            });
+        }
+        else {
+            console.log("ya esta creado")
+            subscriber = userExist; // Si ya existe, reutilizamos el registro
+        }
+
+
+        const activeLottery = await Lottery.findOne({ where: { status: true } });
         if (!activeLottery) {
+            //renderizar agradecimiento
             return res.render('subscribe/register', {
                 page: 'Registro Cliente',
                 csrfToken: req.csrfToken(),
                 errors: [{ msg: 'No hay un sorteo activo en este momento' }],
                 data: req.body,
             });
-        }
+        } else {
 
-        const code = await generateUniqueCode();
+            // Validar si ya está registrado en el sorteo
+            const alreadyRegistered = await LotteryParticipation.findOne({
+                where: {
+                    lotteryId: activeLottery.id,
+                    subscriberId: subscriber.identification, 
+                },
+            });
 
-        const subscriber = await Subscriber.create({
-            identification,
-            name,
-            phone,
-            email,
-        });
-
- 
-        await LotteryParticipation.create({
-            lotteryId: activeLottery.id,
-            subscriberId: subscriber.identification,
-            date: new Date(),
-            code,
-        });
-
+            if (alreadyRegistered) {
+                res.render('subscribe/thankYou', {
+                    page: 'Ya te encuentras registrado en nuestro Sorteo',
+                    subscriber,
+                    code: alreadyRegistered.code,
+                    lottery: activeLottery.name
+                });
+            } else {
+                /** si aun no esta registrado en el sorteo activo */
+                code = await generateUniqueCode();
+                await LotteryParticipation.create({
+                    lotteryId: activeLottery.id,
+                    subscriberId: subscriber.identification,
+                    date: new Date(),
+                    code,
+                });
+    
+                res.render('subscribe/thankYou', {
+                    page: 'Gracias por Participar',
+                    subscriber,
+                    code,
+                    lottery: activeLottery.name
+                });
+            }
         
 
-        res.render('subscribe/thankYou', {
-            page: 'Gracias por Participar',
-            subscriber,
-            code,
-            lottery: activeLottery.name
-        });
- 
+
+
+
+        }
+
 
     } catch (error) {
         console.error('Error guardando  Subcriptor:', error);
