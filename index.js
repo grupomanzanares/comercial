@@ -63,7 +63,8 @@ app.get('/market/test', (req, res) => {
 // 5.  Habilitar plantilla Pub:  configuramos
 app.set('view engine', 'pug') //voy a utilizar un motor de plantillas llamado pug
 app.set('views','./views')  // ruta donde estaran las vistas
-
+// Configurar la variable basePath para el prefijo
+app.locals.basePath = '/market';
 
 
 
