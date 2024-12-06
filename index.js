@@ -14,46 +14,70 @@ import csurf from 'csurf';
 // 2. crear la app
 const app = express();
 
-            /**
-             * CONFIGURACIONES
-             * Definir carpeta pública
-             * 
-             * 
-             *  */
-                //app.use(express.static ('public'))  
-                app.use('/market', express.static('public'));
+/**
+    * CONFIGURACIONES
+    * Definir carpeta pública
+    * 
+    * 
+    *  */
+//app.use(express.static ('public'))  
+app.use('/market', express.static('public'));
                 
-                
 
-            /** CONEXION A LA BASE DE DATOS */
-            try {
-                await db.authenticate();
-                console.info('Conexión exitosa a la base de datos');
-                await db.sync();                                        /*   Sincroniza cambios en la Base de Datos */
-                console.info('Sincronización completada');
-            } catch (error) {
-                console.log(error);
-            }
+/** CONEXION A LA BASE DE DATOS */
+try {
+    await db.authenticate();
+    console.info('Conexión exitosa a la base de datos');
+    await db.sync();                                        /*   Sincroniza cambios en la Base de Datos */
+    console.info('Sincronización completada');
+    } catch (error) {
+        console.log(error);
+    }
 
-            /** HABILITAR LECTURA DE DATOS DEL FORMULARIO
-             * Permite que Express entienda y acceda a los datos de un formulario,
-             * Así, en la ruta que maneja la solicitud POST, podra acceder a los datos del req.body el cuerpo de la solicitud
-             */
-            app.use(express.urlencoded({extended:true}))
-
-
-            //Habilitar Cookie Parser:  permite guardar el jwt que creemos
-            app.use(cookieParser());   
+/** HABILITAR LECTURA DE DATOS DEL FORMULARIO
+    * Permite que Express entienda y acceda a los datos de un formulario,
+    * Así, en la ruta que maneja la solicitud POST, podra acceder a los datos del req.body el cuerpo de la solicitud
+    */
+app.use(express.urlencoded({extended:true}))
 
 
-            // Habilitar el CSRF
-            app.use(csurf({cookie:true}));   
+//Habilitar Cookie Parser:  permite guardar el jwt que creemos
+app.use(cookieParser());   
 
-            // **Middleware para registrar las solicitudes**
-            app.use((req, res, next) => {
-                console.log(`Solicitud: ${req.method} ${req.url}`);
-                next(); // Pasa al siguiente middleware
-            });
+app.disable('x-powered-by');
+
+app.use('/market', (req, res, next) => {
+    req.basePath = '/market';
+    res.locals.basePath = '/market';
+    next();
+})
+
+
+// Habilitar el CSRF
+//app.use(csurf({cookie:true}));  
+            
+app.use('/market', csurf({
+    cookie: true,
+    path: '/market' // Especificar el path base para CSRF
+}));
+
+// Middleware para manejar errores de CSRF
+app.use((err, req, res, next) => {
+    if (err.code !== 'EBADCSRFTOKEN') return next(err);
+
+    // Manejar error de token CSRF
+    res.status(403);
+    res.render('error', {
+        mensaje: 'Error de seguridad: Token CSRF inválido',
+        error: true
+    });
+});
+
+// **Middleware para registrar las solicitudes**
+app.use((req, res, next) => {
+    console.log(`Solicitud: ${req.method} ${req.url}`);
+    next(); // Pasa al siguiente middleware
+});
 
 
 // 4. Definir las rutas
@@ -69,11 +93,6 @@ app.get('/market/test', (req, res) => {
 // 5.  Habilitar plantilla Pub:  configuramos
 app.set('view engine', 'pug') //voy a utilizar un motor de plantillas llamado pug
 app.set('views','./views')  // ruta donde estaran las vistas
-// Configurar la variable basePath para el prefijo
-app.locals.basePath = '/market';
-
-
-
 
 
 // 3. Definir un Puerto y arrancar el proyecto
