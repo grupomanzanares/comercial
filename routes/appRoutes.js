@@ -22,10 +22,6 @@ router.get('/register', formRegister)
 router.post('/register', register)
 
 
-//Registro
-router.get('/register',  formRegister);                         // Vista de registro  
-router.post('/register', register);                             // Metodo registrar
-
 //buscador
 router.post('/buscador', search)
 
