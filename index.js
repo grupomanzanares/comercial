@@ -53,7 +53,7 @@ const app = express();
 // 4. Definir las rutas
 app.use('/market/auth', usuarioRoutes)
 app.use('/market', appRoutes)
-app.use('/market', principalRoutes)
+// app.use('/market', principalRoutes)
 
 app.get('/market/test', (req, res) => {
     res.send('Ruta /market/test funcionando');
