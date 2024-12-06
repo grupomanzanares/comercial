@@ -54,6 +54,10 @@ app.use('/market/auth', usuarioRoutes)
 app.use('/market', appRoutes)
 app.use('/market', principalRoutes)
 
+app.get('/market/test', (req, res) => {
+    res.send('Ruta /market/test funcionando');
+});
+
 
 // 5.  Habilitar plantilla Pub:  configuramos
 app.set('view engine', 'pug') //voy a utilizar un motor de plantillas llamado pug
